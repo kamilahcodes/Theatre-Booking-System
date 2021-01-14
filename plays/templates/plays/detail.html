@@ -1,0 +1,56 @@
+
+
+
+{%extends "base.html"%}
+
+{% block content %}
+
+<div>
+
+
+<h1 class="display-3">{{object.title}}</h1>
+
+
+
+
+<img src = '{{object.image.url}}' class = 'rounded float-left' style="max-width:500px; max-height:500px !important;"/>
+Genre: {{object.genre}}</br>
+{{object.description}}</br>
+</div>
+
+
+
+
+
+<div>
+<ul class="list-group">
+{% for i in v %}
+
+  <li class="list-group-item"> <a href= '{{i.get_absolute_url}}'>{{ i.date}} {{i.time}} </a> </li>
+{% endfor %}
+</ul>
+</div>
+
+
+
+
+
+
+<div>
+
+{{r.count}} Review{{ r|pluralize }}
+  {% for i in r %}
+  <blockquote class="blockquote">
+  <p class="mb-0">{{i.content}}</p>
+  <footer class="blockquote-footer">by <cite title="Source Title">{{i.user|capfirst}}</cite></footer>
+</blockquote>
+
+</div>
+
+
+  {% endfor %}
+
+
+</div>
+
+{%endblock%}

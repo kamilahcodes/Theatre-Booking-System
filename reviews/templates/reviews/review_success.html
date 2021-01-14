@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Greenwich Community Theatre</title>
+        {% include 'base/css.html' %}
+        {% block base_head %}{% endblock %}
+    </head>
+    <body>
+
+      <div class='container'>
+
+      {% block content %}
+
+      <form method="post" action='{% url "home" %}' data-endpoint='{% url "home" %}' class="form" {% if request.user.is_authenticated %}data-user='abc'{% endif %}>
+        {% csrf_token %}
+
+        <h1 class="display-4">Thank you for your review ! </h1>
+      </br>
+    </br>
+        <button type="submit" class="btn btn-info">Book another play?</button>
+      </form>
+
+
+
+      {% endblock %}
+    </div>
+
+        {% include 'base/js.html' %}
+        {% block javascript %}
+
+        {% endblock %}
+    </body>
+  </html>

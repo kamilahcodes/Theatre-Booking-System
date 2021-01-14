@@ -1,0 +1,144 @@
+{%extends "base.html"%}
+
+
+{% block content %}
+<h1>Cart</h1>
+
+
+ {% if cart.views.exists and cart.seats.exists %}
+<div class="container">
+<table class="table cart-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Play Name</th>
+      <th>Play Date</th>
+      <th>Play Time</th>
+    </tr>
+  </thead>
+  <tbody class='cart-body'>
+    {% for view in cart.views.all %}
+
+
+    <tr class='cart-product'>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ view.play_name }}
+
+      </td>
+      <td>{{ view.date }}</td>
+
+          <td>{{ view.time}}</td>
+    </tr>
+    {% endfor %}
+
+    <tr>
+      <td colspan="3"></td>
+      <td><b>Plays Total:</b> £<span class='cart-total'>{{ cart.playstotal }}</span></td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+
+<div class='cart-item-remove-form' style='display:none'>
+
+
+  </div>
+
+
+
+
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col">#</th>
+      <th scope="col">Seat Number</th>
+      <th scope="col">Seat Band</th>
+      <th scope="col">Seat Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for seat in cart.seats.all%}
+
+    <tr>
+
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{seat.number}}</td>
+      <td>{{seat.seat_band}}</td>
+      <td>{{seat.price}}</td>
+    </tr>
+
+  {%endfor%}
+
+  <tr>
+    <td colspan="3"></td>
+    <td><b>Seat Total</b> £<span class='cart-total'>{{ cart.seattotal }}</span></td>
+  </tr>
+</tbody>
+</table>
+
+<div class="col">
+<form  method='POST' action='{% url "cart:updatea" %}' data-endpoint='{% url "cart:updatea" %}' class="form" {% if request.user.is_authenticated %}data-user='abc'{% endif %}> {% csrf_token %}
+
+
+{% for o in ship %}
+
+
+  <input type="radio" name="ship" value="{{o.id}}">{{o.name}}
+
+
+
+{%endfor%}
+  <button type='submit' class='btn btn-link'>Add Shipping</button></div>
+
+
+</form>
+</div>
+
+    <th scope="row"></th>
+
+<table class="table">
+  <tbody>
+  <tr>
+
+    <td colspan="1"></td>
+    <td><b>Subtotal</b> £<span class='cart-subtotal'>{{ cart.subtotal }}</span></td>
+  </tr>
+  <tr>
+    <td colspan="1"></td>
+    <td><b>Discount*{{cart.discountvalue.name}}</b> <span class='cart-total'>{{ cart.discountvalue }}</span></td>
+  </tr>
+  <tr>
+    <td colspan="1"></td>
+    <td><b>Shipping</b> £<span class='cart-total'>{{ cart.shippingtotal }}</span></td>
+  </tr>
+  <tr>
+    <td colspan="1"></td>
+    <td><b>Total</b> £<span class='cart-total'>{{ cart.total }}</span></td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+
+  </tr>
+  </tbody>
+</table>
+
+
+
+<form  method='POST' action='{% url "visacheck:visacheck" %}' data-endpoint='{% url "visacheck:visacheck" %}' class="form" {% if request.user.is_authenticated %}data-user='abc'{% endif %}> {% csrf_token %}
+<p> * discount value is automatically calculated and multipled to total before shipping costs</p>
+
+  <button type='submit' class='btn btn btn-primary'>Checkout</button></div>
+
+
+</form>
+
+</div>
+{% else %}
+<p class='lead'>Cart is empty</p>
+{% endif %}
+{% endblock %}

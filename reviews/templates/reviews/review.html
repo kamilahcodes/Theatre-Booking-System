@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+
+<form method="post" action='{% url "reviews:success" %}' data-endpoint='{% url "reviews:success" %}' class="form" {% if request.user.is_authenticated %}data-user='abc'{% endif %}>
+  <div class="form-group">
+  {% csrf_token %}
+  {{ form|crispy }}
+</div>
+  {%if request.user.is_authenticated %}
+
+  <button type="submit" value="post">Submit</button>
+  {%else%}
+     <button type="submit" value="post" disabled>Submit</button>
+  {%endif%}
+</form>
+{%endblock%}

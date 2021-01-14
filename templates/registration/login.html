@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
+
+
+
+
+<form  method='POST' action='{% url "signup" %}' data-endpoint='{% url "signup" %}' class="form" {% if request.user.is_authenticated %}data-user='abc'{% endif %}> {% csrf_token %}
+
+
+
+
+ <h5> Don't have an account ? </h5>
+  <button type='submit' class='btn btn-link'>Sign Up</button></div>
+
+
+</form>
+
+{% endblock %}

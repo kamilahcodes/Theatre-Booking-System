@@ -1,0 +1,37 @@
+
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Greenwich Community Theatre</title>
+        {% include 'base/css.html' %}
+        {% block base_head %}{% endblock %}
+    </head>
+    <body>
+
+      <div class='container'>
+
+      {% block content %}
+      {% block title %}  <h1 class="display-4">Checkout</h1>{% endblock %}
+      <form method="post" action='{% url "visacheck:success" %}' data-endpoint='{% url "visacheck:success" %}' class="form" {% if request.user.is_authenticated %}data-user='abc'{% endif %}>
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <button type="submit">Submit</button>
+      </form>
+
+
+
+      {% endblock %}
+    </div>
+
+        {% include 'base/js.html' %}
+        {% block javascript %}
+
+        {% endblock %}
+    </body>
+  </html>

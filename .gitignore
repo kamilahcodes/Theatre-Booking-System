@@ -1,0 +1,15 @@
+*.pyc  
+*~  
+__pycache__  
+venv  
+db.sqlite3  
+/my_static
+/static_cdn  
+.DS_Store 
+
+ # Sublime Text # 
+*.tmlanguage.cache 
+*.tmPreferences.cache 
+*.stTheme.cache 
+*.sublime-workspace 
+*.sublime-project  

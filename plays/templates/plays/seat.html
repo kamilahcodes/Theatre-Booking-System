@@ -1,0 +1,94 @@
+{%extends "base.html"%}
+
+{% block content %}
+
+<h1 class="display-4 ">{{object.play_name}} : {{object}} : {{object.time}}</h1>
+
+<h2> Select a seat : </h2>
+
+ </br>
+
+ </br>
+ </br>
+  </br>
+   </br>
+
+   <div class="row">
+         <div class="col-sm-12">
+
+           <button type="button" class="btn btn-secondary btn-lg btn-block">The Stage</button>
+
+         </div>
+      </div>
+
+    </br>
+    </br>
+     </br>
+      </br>
+
+
+
+<form  method='POST' action='{% url "cart:update" %}' data-endpoint='{% url "cart:update" %}' class="form" {% if request.user.is_authenticated %}data-user='abc'{% endif %}> {% csrf_token %}
+
+
+ <div class="row">
+    <input type='hidden' name='view_id' value='{{ object.id }}'/>
+    {% for o in s %}
+        {% if o.vacant == True %}
+
+
+
+            <div class="col-sm-3">
+
+              <div class="btn-group-toggle btn-block" data-toggle="buttons">
+                {% if o.seat_band == 'A' %}
+                    <label class="btn btn-secondary btn-lg btn-block">
+                      {%elif  o.seat_band == 'B' %}
+                      <label class="btn btn-info  btn-lg btn-block">
+
+                        {%elif  o.seat_band == 'C' %}
+                        <label class="btn btn-dark  btn-lg btn-block">
+                        {%endif%}
+
+
+
+                        <input type="radio" name="seat"   value="{{o.id}}" autocomplete="off"> {{o}}
+                      </label>
+                  </div>
+
+                </div>
+
+
+
+
+
+
+
+         {% else %}
+         <div class="col-sm-3">
+         <div class="btn-group-toggle btn-block" data-toggle="buttons" >
+                 <label class="btn btn-light ">
+                   <input type="radio" name="seat" value="{{o.id}}" autocomplete="off" disabled> {{o}}
+                 </label>
+          </div>
+        </div>
+
+
+
+          {% endif %}
+      {% endfor %}
+
+    </br>
+  </br>
+
+         <button type="submit" class="btn btn-outline-secondary btn-lg">Confirm</button>
+
+    </div>
+
+</form>
+
+
+
+
+
+{%endblock%}
